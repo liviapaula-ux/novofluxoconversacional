@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornada de Parentalidade iFood | Executive Flow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #FDFDFD;
+            scroll-behavior: smooth;
+        }
+
+        .flow-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Linha central do fluxograma */
+        .flow-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E5E7EB;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        /* Estilo dos Nodes (Caixinhas) */
+        .node-card {
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+        }
+
+        .node-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        /* Cores das Fases */
+        .phase-acolher { border-left: 5px solid #FBBF24; }
+        .phase-planejar { border-left: 5px solid #F97316; }
+        .phase-cuidar { border-left: 5px solid #3B82F6; }
+        .phase-sustentar { border-left: 5px solid #10B981; }
+
+        /* Conectores horizontais */
+        .connector {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 2px;
+            background: #E5E7EB;
+            z-index: 5;
+        }
+
+        .gift-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); color: #EA1D2C; }
+            100% { transform: scale(1); }
+        }
+
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body x-data="{ 
+    modalOpen: false, 
+    modalTitle: '', 
+    modalBody: '',
+    openMsg(title, body) {
+        this.modalTitle = title;
+        this.modalBody = body;
+        this.modalOpen = true;
+    }
+}">
+
+    <!-- Header Executivo -->
+    <header class="bg-white border-b border-gray-100 py-10 text-center mb-16">
+        <div class="mb-4 flex justify-center">
+            <img src="https://logodownload.org/wp-content/uploads/2017/05/ifood-logo-0.png" alt="iFood" class="h-6">
+        </div>
+        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Fluxograma de Parentalidade</h1>
+        <p class="text-gray-500 mt-2 font-light">Uma jornada de cuidado, planejamento e sustentabilidade para você e sua família.</p>
+    </header>
+
+    <div class="flow-container pb-20">
+        <div class="flow-line"></div>
+
+        <!-- TEMPO DE ACOLHER -->
+        <section class="mb-24">
+            <div class="flex items-center justify-center mb-10">
+                <span class="bg-amber-100 text-amber-700 px-6 py-2 rounded-full font-bold uppercase tracking-widest text-xs border border-amber-200 shadow-sm z-10">Tempo de Acolher</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10 relative">
+                
+                <!-- Inscrição -->
+                <div class="flex justify-end">
+                    <div class="node-card phase-acolher p-5 rounded-2xl w-full md:w-80">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold text-amber-600 uppercase">Início</span>
+                            <i class="fa-solid fa-flag-checkered text-gray-300"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Inscrição no Programa</h3>
+                        <p class="text-xs text-gray-500 mt-1">Bem-vindo à jornada iFood.</p>
+                    </div>
+                </div>
+
+                <!-- Mapeamento de Saúde -->
+                <div class="flex justify-start">
+                    <div class="node-card phase-acolher p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-amber-600 uppercase">Gatilho Mimo</span>
+                            <i class="fa-solid fa-gift gift-pulse text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Mapeamento de Saúde</h3>
+                        <div class="mt-4 flex gap-2">
+                            <a href="https://script.google.com/..." class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-[10px] px-3 py-1.5 rounded-lg font-bold transition">FORMULÁRIO</a>
+                            <button @click="openMsg('Mapeamento de Saúde', 'Olá, FoodLover! Este mapeamento é o nosso primeiro passo para te conhecer. Através dele, entendemos as necessidades da gestante para oferecer o suporte ideal. É a sua porta de entrada para o cuidado especializado!')" class="bg-amber-500 hover:bg-amber-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-comment-dots"></i> MENSAGEM
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acolhimento Social -->
+                <div class="flex justify-end">
+                    <div class="node-card phase-acolher p-5 rounded-2xl w-full md:w-80">
+                        <div class="flex justify-between mb-2 italic">
+                            <span class="text-xs font-bold text-amber-600 uppercase italic">Social</span>
+                            <i class="fa-solid fa-users-viewfinder text-gray-300"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Acolhimento Social</h3>
+                        <button @click="openMsg('Acolhimento Social', 'Preparamos um repertório incrível de possibilidades para você. Em até 30 dias, nossa assistente social entrará em contato para um acolhimento social humanizado. Sinta-se abraçado(a) desde já!')" class="mt-4 text-amber-600 text-[10px] font-bold flex items-center gap-1 hover:underline">
+                            <i class="fa-solid fa-bell"></i> VER AVISO
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Isenção Copay -->
+                <div class="flex justify-start">
+                    <div class="node-card phase-acolher p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-amber-600 uppercase">Gatilho Mimo</span>
+                            <i class="fa-solid fa-gift gift-pulse text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Fluxo de Isenção de Copay</h3>
+                        <div class="mt-4 flex gap-2">
+                            <a href="https://survey.lockton.com.br/..." class="bg-gray-100 text-gray-700 text-[10px] px-3 py-1.5 rounded-lg font-bold">LINK FLUXO</a>
+                            <button @click="openMsg('Isenção de Copay', 'Saúde sem preocupações! Preencha este fluxo para garantir a isenção dos descontos de coparticipação durante toda a gestação até o parto. É um benefício exclusivo para garantir sua tranquilidade financeira neste momento.')" class="bg-amber-500 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold">MENSAGEM</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentoria e Trilha -->
+                <div class="col-span-full flex flex-col items-center gap-4 mt-6">
+                    <div class="node-card phase-acolher p-5 rounded-2xl w-full md:w-96 shadow-md border-2 border-amber-50">
+                        <h3 class="font-bold text-gray-800 text-center mb-4 italic">Mentoria & Desenvolvimento</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase mb-2 italic italic">Gestantes</p>
+                                <button @click="openMsg('Agendamento de Mentoria', 'A mentoria é o seu espaço de troca e orientação. Convidamos você a agendar sua primeira sessão para alinharmos expectativas e fortalecermos sua jornada!')" class="bg-white border border-amber-500 text-amber-600 text-[9px] p-2 rounded-lg w-full font-bold">VER CONVITE</button>
+                            </div>
+                            <div class="text-center italic italic">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Companheiros</p>
+                                <button @click="openMsg('Trilha para Pais', 'Papai, sua participação é fundamental! Convidamos você a acessar nossa trilha exclusiva para pais, com conteúdos que apoiam o seu papel e fortalecem o vínculo familiar.')" class="bg-white border border-amber-500 text-amber-600 text-[9px] p-2 rounded-lg w-full font-bold">VER TRILHA</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-zinc-800 text-white px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-tighter shadow-xl">
+                        <i class="fa-solid fa-briefcase mr-2 text-amber-400"></i> Liderança envolvida no processo
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEMPO DE PLANEJAR -->
+        <section class="mb-24">
+            <div class="flex items-center justify-center mb-10">
+                <span class="bg-orange-100 text-orange-700 px-6 py-2 rounded-full font-bold uppercase tracking-widest text-xs border border-orange-200 shadow-sm z-10">Tempo de Planejar</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10">
+                <div class="flex justify-end">
+                    <div class="node-card phase-planejar p-5 rounded-2xl w-full md:w-80">
+                        <span class="text-xs font-bold text-orange-600 uppercase italic">Mentoria</span>
+                        <h3 class="font-bold text-gray-800">Sessão de Mentoria Gestante</h3>
+                        <p class="text-[10px] text-gray-400 mt-2">Etapa obrigatória para progressão.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="node-card phase-planejar p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-orange-600 uppercase">Gatilho Mimo</span>
+                            <i class="fa-solid fa-gift gift-pulse text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Novo Mapeamento de Saúde</h3>
+                        <div class="mt-4 flex gap-2">
+                            <a href="#" class="bg-gray-100 text-gray-700 text-[10px] px-3 py-1.5 rounded-lg font-bold italic">🔗 LINK FORM</a>
+                            <button @click="openMsg('Novo Mapeamento', 'Avançamos na jornada! Este novo mapeamento nos ajuda a entender as mudanças físicas e emocionais dessa nova fase, garantindo que o cuidado acompanhe o crescimento do seu bebê.')" class="bg-orange-500 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold">MENSAGEM</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mais itens da fase planejar -->
+                <div class="flex justify-end">
+                    <div class="node-card phase-planejar p-5 rounded-2xl w-full md:w-80">
+                        <span class="text-xs font-bold text-orange-600 uppercase">Interação</span>
+                        <h3 class="font-bold text-gray-800">Roda de Conversa para Pais</h3>
+                        <button @click="openMsg('Roda de Conversa', 'Um espaço seguro para trocar experiências com outros pais iFood. Convidamos você a participar deste momento de escuta e aprendizado coletivo!')" class="mt-3 text-orange-600 text-[10px] font-bold">AGENDAR / MENSAGEM</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="node-card phase-planejar p-5 rounded-2xl w-full md:w-80 border-dashed border-gray-200">
+                        <span class="text-xs font-bold text-gray-400 uppercase">Suporte</span>
+                        <h3 class="font-bold text-gray-600">Acompanhamento Contínuo</h3>
+                        <div class="mt-4 space-y-2">
+                            <button @click="openMsg('Assistência Social', 'Nossa assistente social permanece à sua total disposição para apoiar em qualquer necessidade. Conte conosco em cada passo!')" class="text-[9px] bg-orange-50 text-orange-700 p-2 rounded w-full text-left font-bold">ASSISTÊNCIA SOCIAL</button>
+                            <button @click="openMsg('Time de Saúde', 'O time de saúde iFood fará contatos periódicos para orientações preventivas e acompanhamento clínico, garantindo o seu bem-estar.')" class="text-[9px] bg-orange-50 text-orange-700 p-2 rounded w-full text-left font-bold">TIME DE SAÚDE</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-full flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-3/4">
+                        <div class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm flex items-center justify-between">
+                            <span class="text-xs font-bold italic text-gray-700 italic">📚 Playbook para Pais</span>
+                            <button @click="openMsg('Playbook', 'Hora de mergulhar no conhecimento! Criamos um guia prático com tudo o que você precisa saber para se preparar para a chegada do bebê e para sua licença.')" class="text-[10px] bg-orange-100 text-orange-700 px-3 py-1 rounded-lg font-bold">MENSAGEM</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm flex items-center justify-between">
+                            <span class="text-xs font-bold text-gray-700 italic">💡 Letramento da Liderança</span>
+                            <button @click="openMsg('Liderança', 'Caro Líder, convidamos você a consumir este conteúdo de letramento para melhor acolher o FoodLover nesta fase de transição para a licença.')" class="text-[10px] bg-orange-100 text-orange-700 px-3 py-1 rounded-lg font-bold">MENSAGEM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEMPO DE CUIDAR -->
+        <section class="mb-24">
+            <div class="flex items-center justify-center mb-10">
+                <span class="bg-blue-100 text-blue-700 px-6 py-2 rounded-full font-bold uppercase tracking-widest text-xs border border-blue-200 shadow-sm z-10">Tempo de Cuidar</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10">
+                
+                <div class="flex justify-end">
+                    <div class="node-card phase-cuidar p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <span class="text-xs font-bold text-blue-600 uppercase italic">Benefícios</span>
+                        <h3 class="font-bold text-gray-800">Plano de Saúde do Bebê</h3>
+                        <div class="mt-4 flex gap-2">
+                            <a href="#" class="bg-blue-50 text-blue-700 text-[10px] px-3 py-1.5 rounded-lg font-bold italic">🔗 PORTAL</a>
+                            <button @click="openMsg('Inclusão do Bebê', 'Boas-vindas ao novo membro da família! Este processo de inclusão deve ser realizado no portal de benefícios para garantir a cobertura assistencial completa desde os primeiros dias.')" class="bg-blue-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold italic">MENSAGEM</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start italic">
+                    <div class="node-card phase-cuidar p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-blue-600 uppercase">Gatilho Mimo</span>
+                            <i class="fa-solid fa-gift gift-pulse text-red-500"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">Formulário Saúde do Bebê</h3>
+                        <button @click="openMsg('Saúde do Bebê', 'Sua participação garante o cuidado! Convidamos você a preencher o formulário de saúde do bebê, o que garantirá também a isenção da coparticipação da criança até os 2 anos de idade.')" class="mt-3 bg-blue-100 text-blue-700 text-[10px] px-3 py-1.5 rounded-lg font-bold w-full text-center">VER CONVITE</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <div class="node-card phase-cuidar p-5 rounded-2xl w-full md:w-80">
+                        <span class="text-xs font-bold text-blue-600 uppercase italic">Gestão</span>
+                        <h3 class="font-bold text-gray-800">Licença Paternidade (Alli)</h3>
+                        <button @click="openMsg('Fluxo Alli', 'Papai, é hora de focar no que mais importa. Convidamos você a preencher o fluxo de agendamento no sistema Alli para oficializar sua licença paternidade.')" class="mt-4 text-blue-600 text-[10px] font-bold">VER LINK / MENSAGEM</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="node-card phase-cuidar p-5 rounded-2xl w-full md:w-80 border-dashed border-blue-200">
+                        <span class="text-xs font-bold text-gray-400 uppercase italic">Desenvolvimento</span>
+                        <h3 class="font-bold text-gray-600 italic">+1 ou 2 Sessões Mentoria</h3>
+                        <p class="text-[10px] text-gray-400 mt-2">Suporte especializado no puerpério.</p>
+                    </div>
+                </div>
+
+                <div class="col-span-full flex flex-col items-center gap-6 mt-4">
+                    <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 max-w-xl text-center shadow-sm">
+                        <i class="fa-solid fa-house-chimney-heart text-blue-400 text-2xl mb-3"></i>
+                        <h4 class="font-bold text-blue-900 mb-2 italic">Acolhimento no Retorno</h4>
+                        <p class="text-xs text-blue-700 leading-relaxed italic">
+                            Sabemos que o retorno é um momento sensível. Estamos aqui com um abraço aberto e todo o suporte necessário para que sua volta seja suave, respeitando seu tempo e sua nova rotina familiar. Bem-vinda de volta!
+                        </p>
+                    </div>
+                    <div class="bg-gray-800 text-white p-4 rounded-xl flex items-center gap-4">
+                        <i class="fa-solid fa-chalkboard-user text-blue-400"></i>
+                        <div class="text-left">
+                            <p class="text-[10px] font-bold uppercase text-gray-400">Mensagem Líder</p>
+                            <p class="text-[11px] italic">"Líder, realize o Reonboarding do seu FoodLover priorizando o acolhimento e a flexibilidade."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEMPO DE SUSTENTAR -->
+        <section class="mb-24">
+            <div class="flex items-center justify-center mb-10">
+                <span class="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full font-bold uppercase tracking-widest text-xs border border-emerald-200 shadow-sm z-10">Tempo de Sustentar</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-10">
+                
+                <div class="flex justify-end">
+                    <div class="node-card phase-sustentar p-5 rounded-2xl w-full md:w-80">
+                        <span class="text-xs font-bold text-emerald-600 uppercase italic">Encerramento</span>
+                        <h3 class="font-bold text-gray-800">Sessões Finais</h3>
+                        <div class="mt-4 flex gap-2">
+                            <a href="#" class="bg-emerald-50 text-emerald-700 text-[10px] px-3 py-1.5 rounded-lg font-bold italic">🔗 AGENDAR</a>
+                            <button @click="openMsg('Encerramento', 'Nossa jornada oficial encerra por aqui, mas o vínculo continua. Convidamos você para esta última sessão de mentoria para celebrar suas conquistas e amarrar os aprendizados dessa trilha incrível!')" class="bg-emerald-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold italic">MENSAGEM</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="node-card phase-sustentar p-5 rounded-2xl w-full md:w-80 shadow-sm">
+                        <span class="text-xs font-bold text-emerald-600 uppercase italic">Saúde Final</span>
+                        <h3 class="font-bold text-gray-800">Mapeamento Pais e Gestantes</h3>
+                        <button @click="openMsg('Mapeamento Final', 'Olá! Como você e o bebê estão após esses meses de retorno? Preparamos este último mapeamento acolhedor para ouvir suas impressões e garantir que a saúde da família esteja 100%.')" class="mt-3 bg-emerald-100 text-emerald-700 text-[10px] px-3 py-1.5 rounded-lg font-bold w-full text-center italic">LINK + MENSAGEM</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <div class="node-card phase-sustentar p-5 rounded-2xl w-full md:w-80">
+                        <span class="text-xs font-bold text-emerald-600 uppercase">Apoio</span>
+                        <h3 class="font-bold text-gray-800">Acolhimento Social Final</h3>
+                        <button @click="openMsg('Fim do Social', 'Foi um privilégio acompanhar sua família. Encerramos hoje o acompanhamento social dedicado, mas saiba que o iFood sempre terá os braços abertos para você. Desejamos muita felicidade nessa nova vida!')" class="mt-3 text-emerald-600 text-[10px] font-bold italic">VER MENSAGEM ACOLHEDORA</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div class="node-card phase-sustentar p-5 rounded-2xl w-full md:w-80 bg-emerald-50 border-emerald-200 border-2">
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-tighter italic italic">#AllTogether</span>
+                        <h3 class="font-bold text-gray-900 mt-1 italic">Despedida do Programa</h3>
+                        <button @click="openMsg('Resumo da Jornada', 'Uau, que caminhada! Desde a inscrição até esses 6 meses de retorno, você demonstrou força e resiliência. Você completou todas as fases, recebeu seus mimos e, mais importante, cuidou do futuro. Parabéns por concluir o programa com sucesso!')" class="mt-4 bg-emerald-600 text-white text-[10px] px-4 py-2 rounded-lg font-bold w-full">LER RESUMO FINAL</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODAL DE MENSAGENS -->
+    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div @click="modalOpen = false" x-show="modalOpen" x-transition.opacity class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div x-show="modalOpen" x-transition.scale.90 class="bg-white rounded-[2rem] p-8 md:p-12 w-full max-w-lg shadow-2xl relative z-20">
+            <button @click="modalOpen = false" class="absolute top-6 right-6 text-gray-300 hover:text-gray-500 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <div class="mb-6">
+                <div class="w-12 h-1.5 bg-red-500 rounded-full mb-6"></div>
+                <h2 class="text-2xl font-extrabold text-gray-900 italic italic" x-text="modalTitle"></h2>
+            </div>
+            <p class="text-gray-600 leading-relaxed italic italic" x-text="modalBody"></p>
+            <div class="mt-10 flex justify-end">
+                <button @click="modalOpen = false" class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-red-600 transition">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-100 py-12 text-center italic italic">
+        <p class="text-xs font-bold text-gray-400 tracking-[0.3em] uppercase mb-4 italic">#GenteVemPrimeiro</p>
+        <div class="flex justify-center gap-6 text-gray-300 italic italic italic">
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-baby"></i>
+            <i class="fa-solid fa-house"></i>
+        </div>
+    </footer>
+
+</body>
+</html>
